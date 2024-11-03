@@ -49,7 +49,7 @@ class WindNoiseGenerator:
 
         self.fs = fs
         self.duration = duration
-        self.samples = fs * duration
+        self.samples = int(fs * duration)
         self.generate = generate
         self.gustiness = gustiness
         self.wind_profile = wind_profile
@@ -70,7 +70,7 @@ class WindNoiseGenerator:
         exc_filtered = 0.95*exc_filtered / \
             max(np.abs(exc_filtered))
 
-        exc_filtered = signal.resample(exc_filtered, int(self.duration * self.fs))
+        exc_filtered = signal.resample(exc_filtered, self.samples)
 
         return exc_filtered, wind_profile
 
